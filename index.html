@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Captcha Killer</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script>
+        function redirect() {
+            var url = document.getElementById("url").value;
+            var token = document.getElementById("token").value;
+            var key1 = document.getElementById("key1").value;
+            var value1 = document.getElementById("value1").value;
+            var mapForm = document.createElement("form");
+            mapForm.target = "Map";
+            mapForm.method = "POST";
+            mapForm.action = url;
+
+            if (key1 && value1) {
+                var dataAdicional = document.createElement("input");
+                dataAdicional.type = "text";
+                dataAdicional.name = key1;
+                dataAdicional.value = value1;
+                mapForm.appendChild(dataAdicional);
+
+                document.body.appendChild(mapForm);
+            }
+
+
+            var mapInput = document.createElement("input");
+            mapInput.type = "text";
+            mapInput.name = "g-recaptcha-response";
+            mapInput.value = token;
+            mapForm.appendChild(mapInput);
+
+            document.body.appendChild(mapForm);
+
+            map = window.open("", "Map", "status=0,title=0,height=600,width=800,scrollbars=1");
+            mapForm.submit();
+            console.log(key1, value1);
+        }
+    </script>
+</head>
+
+<body>
+
+    <form>
+        URL: <input id="url" type="text">
+        Token: <input id="token" type="text"><br><br>
+        Data adicional KEY: <input id="key1" type="text">
+        Data adicional VALUE: <input id="value1" type="text"><br>
+        <input type="submit" name="Submit" value="Submit" onclick="redirect()">
+    </form>
+
+</body>
+
+</html>
